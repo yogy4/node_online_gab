@@ -1,0 +1,23 @@
+{
+  "name": "toko_online_gab",
+  "version": "1.0.0",
+  "description": "about restapi node mongo for comment apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "resapi",
+    "node",
+    "mongo"
+  ],
+  "author": "nn",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.19"
+  }
+}
