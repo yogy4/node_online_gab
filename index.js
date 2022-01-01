@@ -1,7 +1,7 @@
 let express = require('express')
 let bodyParser = require('body-parser')
 let mongoose = require('mongoose')
-
+const mongoClient = require('mongodb')
 
 
 // harus urut
@@ -16,9 +16,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // set koneksi
-mongoose.connect('mongodb://localhost/datacomment')
-// buat koneksi ke mongodb
-var db = mongoose.connection
+mongoose.connect('mongodb://localhost/datacomment',
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
 var port = process.env.PORT || 8080
 
 app.get('/', function(req, res) {
