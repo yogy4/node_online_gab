@@ -2,6 +2,20 @@ var User = require('../models/user')
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs')
 var setup = require('../config/setup')
+var redis = require('../config/token')
+// const redis = require('redis')
+// const redisctl = redis.createClient()
+
+// import { createClient } from 'redis'
+// const redisctl = createClient()
+// redisctl.on('connect', function(){
+//     console.log("redis connected")
+// })
+//  await redisctl.connect()
+
+
+// redisctl.on('connect', () => console.log('redis connected'))
+// redisctl.on('error', (err) => console.log('redis err', err))
 
 exports.reg = function(req, res){
     var hashPass = bcrypt.hashSync(req.body.password, 8)
@@ -17,6 +31,10 @@ exports.reg = function(req, res){
         var token = jwt.sign({id: userk._id }, setup.secret, {
             expiresIn: 86400 //dalam 24 jam
         })
+        // redis.token.set(token, userk._id)
+        value = userk._id.toString()
+        redis.set_token(token, value)
+        
         res.status(200).send({auth: true, token: token})
 
     })
@@ -38,7 +56,14 @@ exports.login = function(req, res){
         var token = jwt.sign({id: user._id}, setup.secret, {
             expiresIn: 86400
         })
+        // var userid = user._id
+        // value = user._id.toString()
+        redis.set_token(token, token)
         res.status(200).send({auth: true, token: token})
+        // redisctl.set(userid, function(err, reply){
+        //     console.log(reply)
+        // })
+
     })
 }
 

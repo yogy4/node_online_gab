@@ -1,7 +1,18 @@
 Comment = require('../models/comment')
 User = require('../models/user')
 VerifyToken = require('../config/auth')
+// var multer = require('multer')
+const uploadFile = require('../config/upload')
+// var storage = multer.diskStorage({
+//     destination: function (req, file, callback){
+//         callback(null, './uploads')
+//     },
+//     filename: function (req, file, callback){
+//         callback(null, file.fieldname + '-' + Date.now())
+//     }
 
+// })
+// var upload = multer({storage: storage}).single('userAvatar')
 exports.index = function(req, res){
     Comment.get(function (err, comments){
         if(err){
@@ -27,7 +38,20 @@ exports.new = function(req, res, next){
     //     } 
         // else{
         // var tk = VerifyToken
-        
+        //
+        // for upload
+        // upload(req,res,function(err){
+        //     if(err){
+        //         return res.send("Error uploading file")
+        //     }
+        //     res.end("file uploaded")
+        // })
+        uploadFile(req,res, function(err){
+            if(err){
+                return res.send("error uploading file")
+            }
+            res.end("file uploaded")
+        })
         var comment = new Comment()
         comment.nama = req.body.nama 
         comment.komentar = req.body.komentar

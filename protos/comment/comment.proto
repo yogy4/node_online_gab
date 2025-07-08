@@ -1,0 +1,20 @@
+syntax = "proto3";
+package comment;
+import "google/protobuf/empty.proto";
+option go_package = "node_online_gab/protos/comment";
+
+message Comment {
+
+    string name = 1;
+    string comment = 2;
+}
+
+message ListComment {
+    repeated Comment comments = 1;
+}
+
+service CommentSvc {
+    rpc post (Comment) returns (Comment){}
+    rpc list (google.protobuf.Empty) returns (ListComment){}
+}
+
