@@ -40,6 +40,8 @@ async function main() {
     server.addService(services_comment.CommentSvcService, {
         post: comment.post,
         list: comment.list,
+        readPaging: comment.readPaging,
+        searching: comment.searching,
     })
     // let address = process.env.HOST + ":" + process.env.PORT;
     let address = "0.0.0.0:50055"

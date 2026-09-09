@@ -13,8 +13,34 @@ message ListComment {
     repeated Comment comments = 1;
 }
 
+message ReadPagingRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+  
+}
+
+message ReadPagingResponse {
+    repeated Comment comments = 1;
+    string next_page_token = 2;
+  
+}
+
+message SearchRequest {
+    string name = 1;
+    int32 page_size = 2;
+    string page_token = 3;
+  
+}
+
+message SearchResponse {
+    repeated Comment comments = 1;
+    string next_page_token = 2;
+  
+}
 service CommentSvc {
     rpc post (Comment) returns (Comment){}
     rpc list (google.protobuf.Empty) returns (ListComment){}
+    rpc readPaging (ReadPagingRequest) returns (ReadPagingResponse){}
+    rpc searching (SearchRequest) returns (SearchResponse) {}
 }
 
